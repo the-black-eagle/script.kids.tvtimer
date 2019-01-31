@@ -23,7 +23,7 @@ import xbmc ,xbmcvfs, xbmcaddon, xbmcgui
 import datetime, time
 import xml.etree.ElementTree as ET
 delay = 30
-datafile = 'smb://DIAMOND/userdata/pi-times.xml'
+datafile = 'smb://DIAMOND/userdata/pi-times.xml' # xml file on server containing viewing times
 def read_data_file(the_day):
     try:
         if xbmcvfs.exists(datafile):
@@ -36,12 +36,12 @@ def read_data_file(the_day):
             for data in er.findall(the_day):
                 times = data.text
             return times
-        return "07:00-21:00"
+        return "07:00-21:00" # default times if no datafile found on server
         log("Didn't find datafile on DIAMOND")
     except Exception as e:
         log("Error reading datafile !!!")
         log("Error was [%s]" % str(e))
-        return "07:00-21:00"
+        return "07:00-21:00" # default times if an error occurred trying to read data file
 def log(txt):
     if isinstance(txt, str):
         txt = txt.decode('utf-8')
